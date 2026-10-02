@@ -5,7 +5,7 @@ Personal website of Alexis Vatel, Data & AI Product Owner.
 Static HTML/CSS, no build step.
 
 - `index.html`: the whole page (styles inline)
-- `assets/`: photo, logo, Virtus Assets logo, favicon
+- `assets/`: photo, logo, Veris Assets logo and Northwind demo photo, favicon
 
 ## Work locally
 

@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: dark fintech console. Sticky nav, split hero (thesis + portrait), data-pipeline band, capability grid, dated ledger of roles, Virtus Assets feature panel, skills meters, contact strip. */
+/* Layout: dark fintech console. Sticky nav, split hero (thesis + portrait), data-pipeline band, capability grid, dated ledger of roles, Veris Assets feature panel, skills meters, contact strip. */
 :root {
   --bg: #0a1122;
   --surface: #111a31;
@@ -15,6 +15,8 @@
   --indigo: #5a4ee6;
   --cyan: #3fe3ea;
   --accent: #3fe3ea;
+  --success: #3ddc97;
+  --warning: #f5b84b;
   --grad: linear-gradient(120deg, var(--indigo), var(--cyan));
   --font-display: "Montserrat", "Helvetica Neue", Arial, sans-serif;
   --font-body: "IBM Plex Sans", "Segoe UI", Roboto, sans-serif;
@@ -24,12 +26,12 @@
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     --bg: #f5f7fc; --surface: #ffffff; --line: #d9e0ee; --fg: #0d1630; --muted: #55627d;
-    --indigo: #4a3fd4; --cyan: #0aa7b3; --accent: #0a8f9a; color-scheme: light;
+    --indigo: #4a3fd4; --cyan: #0aa7b3; --accent: #0a8f9a; --success: #0f8a5f; --warning: #a35f00; color-scheme: light;
   }
 }
 :root[data-theme="light"] {
   --bg: #f5f7fc; --surface: #ffffff; --line: #d9e0ee; --fg: #0d1630; --muted: #55627d;
-  --indigo: #4a3fd4; --cyan: #0aa7b3; --accent: #0a8f9a; color-scheme: light;
+  --indigo: #4a3fd4; --cyan: #0aa7b3; --accent: #0a8f9a; --success: #0f8a5f; --warning: #a35f00; color-scheme: light;
 }
 
 * { box-sizing: border-box; }
@@ -101,9 +103,9 @@ p { margin: 0; }
 .btn.primary { background: var(--grad); color: #07101f; }
 .btn.ghost { border: 1px solid var(--line); color: var(--fg); }
 .btn.ghost:hover { border-color: var(--accent); }
-.portrait { position: relative; justify-self: end; width: 100%; max-width: 340px; }
+.portrait { position: relative; justify-self: end; align-self: start; margin-top: 8px !important; width: 100%; max-width: 340px; }
 .portrait img {
-  display: block; width: 100%; height: auto; aspect-ratio: 9 / 10; object-fit: cover; object-position: 50% 18%;
+  display: block; width: 100%; height: auto; aspect-ratio: 9 / 10; object-fit: cover; object-position: 50% 8%;
   border-radius: 20px; border: 1px solid var(--line);
 }
 .portrait::after {
@@ -122,7 +124,7 @@ p { margin: 0; }
 .kpi span { font-size: 0.82rem; color: var(--muted); line-height: 1.35; }
 @media (max-width: 820px) {
   .hero .wrap { grid-template-columns: 1fr; gap: 40px; padding-block: 48px; }
-  .portrait { justify-self: start; max-width: 280px; margin-left: 10px; order: -1; }
+  .portrait { justify-self: start; max-width: 280px; margin-left: 10px; margin-top: 0 !important; order: -1; }
 }
 @media (max-width: 480px) { .kpis { grid-template-columns: 1fr; } }
 
@@ -172,23 +174,56 @@ section { padding-block: 88px; border-top: 1px solid var(--line); }
 .role.compact .what { gap: 4px; }
 @media (max-width: 640px) { .role { grid-template-columns: 1fr; gap: 6px; } }
 
-/* Virtus Assets */
-.virtus {
+/* Veris Assets */
+.veris {
   position: relative; overflow: hidden; border-radius: 24px; border: 1px solid var(--line);
   background:
     radial-gradient(500px 280px at 90% 0%, color-mix(in srgb, var(--cyan) 14%, transparent), transparent 70%),
     radial-gradient(500px 280px at 0% 100%, color-mix(in srgb, var(--indigo) 20%, transparent), transparent 70%),
     var(--surface);
-  display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 40px; padding: 48px; align-items: center;
+  display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; padding: 48px; align-items: start;
 }
-.virtus-mark { display: grid; place-items: center; background: #0a1122; border-radius: 18px; padding: 36px 24px; }
-.virtus-mark img { width: min(280px, 100%); height: auto; }
-.virtus-copy { display: grid; gap: 18px; min-width: 0; }
-.virtus-copy .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.pillar { border-top: 2px solid var(--cyan); padding-top: 10px; display: grid; gap: 4px; }
-.pillar strong { font-family: var(--font-display); font-size: 0.95rem; }
-.pillar span { color: var(--muted); font-size: 0.86rem; line-height: 1.45; }
-@media (max-width: 820px) { .virtus { grid-template-columns: 1fr; padding: 32px 22px; } .virtus-copy .pillars { grid-template-columns: 1fr; } }
+.veris-copy { display: grid; gap: 18px; min-width: 0; }
+.veris-logo { justify-self: start; background: #0a1122; border-radius: 14px; padding: 12px 18px; }
+.veris-logo img { display: block; height: 52px; width: auto; }
+.steps { list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 20px; }
+.steps li { border-top: 2px solid var(--cyan); padding-top: 10px; display: grid; gap: 4px; }
+.steps strong { font-family: var(--font-display); font-size: 0.95rem; }
+.steps span { color: var(--muted); font-size: 0.86rem; line-height: 1.45; }
+.veris-note { color: var(--muted); font-size: 0.85rem; }
+/* Northwind card: mirrors the issuer portal preview on veris-assets.com */
+.issuance { position: relative; }
+.issuance::before { content: ""; position: absolute; inset: -1px; border-radius: 18px; background: var(--grad); opacity: .55; filter: blur(6px); }
+.issuance-card { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; display: grid; gap: 16px; padding: 0 20px 18px; }
+.issuance-photo { position: relative; margin: 0 -20px; }
+.issuance-photo img { display: block; width: 100%; height: 140px; object-fit: cover; }
+.illus { position: absolute; top: 12px; left: 12px; font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--warning); background: color-mix(in srgb, var(--bg) 88%, transparent); border: 1px solid color-mix(in srgb, var(--warning) 60%, transparent); border-radius: 999px; padding: 3px 10px; }
+.issuance-head { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+.issuance-head > div { display: grid; gap: 3px; min-width: 0; }
+.issuance-head h3 { font-size: 1.1rem; }
+.issuance-head .sub { color: var(--muted); font-size: 0.85rem; }
+.issuance-head .desc { font-size: 0.88rem; }
+.status { flex: none; font-size: 0.74rem; font-weight: 600; color: var(--success); border: 1px solid color-mix(in srgb, var(--success) 45%, transparent); border-radius: 999px; padding: 2px 10px; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0; }
+.stats div { background: color-mix(in srgb, var(--line) 45%, transparent); border-radius: 10px; padding: 10px; min-width: 0; }
+.stats dt { color: var(--muted); font-size: 0.72rem; line-height: 1.3; }
+.stats dd { margin: 4px 0 0; font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+.bar-label { display: flex; justify-content: space-between; color: var(--muted); font-size: 0.75rem; margin-bottom: 6px; }
+.bar { height: 6px; border-radius: 3px; background: color-mix(in srgb, var(--line) 60%, transparent); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 82%; background: var(--accent); border-radius: 3px; }
+.registry { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.registry caption { text-align: left; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.registry td { padding: 7px 0; border-top: 1px solid var(--line); }
+.registry td + td { text-align: right; font-variant-numeric: tabular-nums; }
+.registry td:nth-child(2) { color: var(--muted); }
+.registry td:last-child { font-weight: 600; }
+.checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 0.78rem; }
+.checks li { display: flex; gap: 8px; align-items: center; }
+.checks .ok { color: var(--success); }
+.checks .chain { color: var(--accent); }
+.yield { border-top: 1px solid var(--line); padding-top: 10px; color: var(--muted); font-size: 0.72rem; line-height: 1.45; }
+@media (max-width: 900px) { .veris { grid-template-columns: 1fr; padding: 32px 20px; } }
+@media (max-width: 480px) { .steps { grid-template-columns: 1fr; } .stats dd { font-size: 1rem; } }
 
 /* Education + skills */
 .two { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
@@ -235,7 +270,7 @@ footer .brand .mark { height: 26px; }
     <ul>
       <li><a href="#expertise">Expertise</a></li>
       <li><a href="#experience">Experience</a></li>
-      <li><a href="#virtus">Virtus Assets</a></li>
+      <li><a href="#veris">Veris Assets</a></li>
       <li><a href="#education">Education</a></li>
     </ul>
     <a class="cta" href="#contact">Get in touch</a>
@@ -252,7 +287,7 @@ footer .brand .mark { height: 26px; }
         <p class="lede">I lead data products in corporate and investment banking, from legacy decommissioning to modern Datalake and DataViz platforms. I bring business, feature teams and data governance together, and use machine learning where it improves data quality.</p>
         <div class="actions">
           <a class="btn primary" href="#experience">View my track record</a>
-          <a class="btn ghost" href="#virtus">Discover Virtus Assets</a>
+          <a class="btn ghost" href="#veris">Discover Veris Assets</a>
         </div>
         <div class="kpis" role="list">
           <div class="kpi" role="listitem"><strong>15 yrs</strong><span>in project, PMO and data roles since 2011</span></div>
@@ -369,22 +404,63 @@ footer .brand .mark { height: 26px; }
     </div>
   </section>
 
-  <section id="virtus">
+  <section id="veris">
     <div class="wrap">
-      <div class="virtus">
-        <div class="virtus-mark">
-          <img src="assets/logo-virtus-assets.png" alt="Virtus Assets" width="700" height="404">
-        </div>
-        <div class="virtus-copy">
+      <div class="veris">
+        <div class="veris-copy">
           <p class="eyebrow">Venture</p>
-          <h2>Virtus Assets</h2>
-          <p class="lede">Virtus Assets is where my two worlds meet: finance and Data &amp; AI product ownership. It applies the same product discipline I use in banking to the management of assets, with clean data, clear governance and useful analytics from day one.</p>
-          <div class="pillars">
-            <div class="pillar"><strong>Finance</strong><span>Asset management built on the rigor of corporate and investment banking.</span></div>
-            <div class="pillar"><strong>Data</strong><span>One governed source of truth, with quality controls built in.</span></div>
-            <div class="pillar"><strong>AI</strong><span>Models and dashboards that turn portfolio data into decisions.</span></div>
+          <div class="veris-logo"><img src="assets/veris-assets-logo.svg" alt="Veris Assets" width="736" height="441"></div>
+          <h2>Issue and manage private bonds, from first draft to final redemption.</h2>
+          <p class="lede">Veris Assets is software for private bond issuers and asset managers. It structures bonds and notes, qualifies professional investors, collects subscriptions and keeps the registry. Coupons, redemptions and reporting follow, with no spreadsheet.</p>
+          <p class="lede">I built it as a product owner: one data model for the whole lifecycle, clear statuses, four-eyes approvals and an audit trail on every step.</p>
+          <ol class="steps">
+            <li><strong>Structure</strong><span>Terms, schedule, eligibility rules and documents in a guided wizard.</span></li>
+            <li><strong>Onboard</strong><span>KYC/KYB files, beneficial owners and eligibility checks in plain language.</span></li>
+            <li><strong>Subscribe &amp; allocate</strong><span>Online subscriptions, fair allocation of oversubscribed issuances.</span></li>
+            <li><strong>Register &amp; service</strong><span>Registry reconciled daily, coupons, redemptions, notices and exports.</span></li>
+          </ol>
+          <div class="actions">
+            <a class="btn primary" href="https://veris-assets.com/en" target="_blank" rel="noopener">Visit veris-assets.com</a>
           </div>
+          <p class="veris-note">Professional investors only. The example on the right is fictitious demo data.</p>
         </div>
+
+        <figure class="issuance" aria-label="An illustrative issuance, as shown in Veris Assets" style="margin:0">
+          <div class="issuance-card">
+            <div class="issuance-photo">
+              <img src="assets/northwind-solar-plant.webp" alt="A ground-mounted solar power plant in the countryside, rows of panels on grass" width="1200" height="600" loading="lazy">
+              <span class="illus">Illustrative example</span>
+            </div>
+            <div class="issuance-head">
+              <div>
+                <h3>Northwind Green Notes</h3>
+                <p class="sub">5-year notes · 5% semi-annual coupon</p>
+                <p class="desc">Helps finance a 12 MWp solar farm on former industrial land near Toulouse, France.</p>
+              </div>
+              <span class="status">Active</span>
+            </div>
+            <dl class="stats">
+              <div><dt>Nominal administered</dt><dd>€1M</dd></div>
+              <div><dt>Holders</dt><dd>3</dd></div>
+              <div><dt>Next coupon</dt><dd>15 Mar</dd></div>
+            </dl>
+            <div>
+              <div class="bar-label"><span>Subscribed</span><span>82%</span></div>
+              <div class="bar" role="img" aria-label="82% subscribed"><i></i></div>
+            </div>
+            <table class="registry">
+              <caption>Registry</caption>
+              <tr><td>Alpine Capital Partners</td><td>100</td><td>€2,500</td></tr>
+              <tr><td>Baltic Pension Fund</td><td>250</td><td>€6,250</td></tr>
+              <tr><td>Cedar Family Office</td><td>150</td><td>€3,750</td></tr>
+            </table>
+            <ul class="checks">
+              <li class="ok"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Coupon approved with four eyes</li>
+              <li class="chain"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>Ledger verified, hash chain intact</li>
+            </ul>
+            <figcaption class="yield">Illustrative target yield, not guaranteed. Investing in private assets carries a risk of capital loss and illiquidity.</figcaption>
+          </div>
+        </figure>
       </div>
     </div>
   </section>
